@@ -2,6 +2,8 @@ var timerOut = document.getElementById('timer-out');
 
 var timer = document.getElementById('timer-time');
 
+var countExer = document.getElementById('count-exer');
+
 var outMessage = document.getElementById('out-message');
 
 var numExer = document.getElementById('timer-exer');
@@ -14,20 +16,21 @@ var timerExer = document.getElementById('timer-exer');
 
 var show = document.getElementById('show');
 
+var objLevels = {lev1: pushLevel1, lev2: pushLevel2}
 var timerE, numE;
-
-levels[0].addEventListener('click', checkStart, pushLevel1);
-levels[1].addEventListener('click', checkStart, pushLevel2);
+levels[0].addEventListener('click', objLevels.lev1);
+levels[1].addEventListener('click', objLevels.lev2);
 
 var arr1 = [];
 var arr2 = [];
 var arrResult = [];
 var userResult = [];
 
+
 function runTimer(){
 	timerOut.style.display = 'block';
 	timer.innerHTML = timerE;
-
+	
 	if (timerE < timerExer.value/2) timer.style.color = '#7fc641';
 	if (timerE < timerExer.value/3) timer.style.color = '#f29807';
 	if (timerE < 60) timer.style.color = 'red';
@@ -35,12 +38,7 @@ function runTimer(){
 	if (timerE <= 0) {
 		outMessage.style.display = 'block';
 		outMessage.innerHTML = 'Timpul rezervat a luat sfârșit! <br>Apasă aici pentru a reîncepe jocul';
-		outMessage.addEventListener('click', refrashDoc);
-		
-		var butt = document.getElementById('button');
-		butt.removeEventListener('click', checkResult);
-
-		
+		outMessage.addEventListener('click', refrashDoc);	
 
 		var allInputsUser = show.querySelectorAll('.input-result');
 		for (var i = 0; i < allInputsUser.length; i++){
@@ -99,6 +97,7 @@ function pushLevel2(){
 		var span = document.createElement('span');
 		var input = document.createElement('input');
 				input.className = 'input-result';
+				input.addEventListener('mouseout', mouseOver);
 
 		var iconNo = document.createElement('i');
 				iconNo.style.visibility = 'hidden';
@@ -131,7 +130,7 @@ function pushLevel2(){
 }
 
 
-function pushLevel1(){
+function pushLevel1(){	
 	getInputNumber();
 	disabledHead();
 	runTimer();
@@ -141,6 +140,7 @@ function pushLevel1(){
 		var span = document.createElement('span');
 		var input = document.createElement('input');
 				input.className = 'input-result';
+				input.addEventListener('mouseout', mouseOver);
 
 		var iconNo = document.createElement('i');
 				iconNo.style.visibility = 'hidden';
@@ -213,10 +213,22 @@ function arrSum(arr){
 	return summ;
 }
 
-function checkStart(){
-	if (numExerInput.value == '' || timerExer.value == ''){
+
+function mouseOver(){
+	var allInputsUser = show.querySelectorAll('.input-result');
+	var count = 0;
+	var arrTemp =[];
+	for (var i = 0; i < allInputsUser.length; i++){
+		if (allInputsUser[i].value != '') count++;
+	}
+	countExer.innerHTML = arrResult.length - count;
+}
+
+
+function checkStart(){ 
+	if (numExerInput.value == '' || timerExer.value == '') {
 		outMessage.style.display = 'block';
 		outMessage.innerHTML = 'Introduce-ti campurile libere...';
-	} 
-	outMessage.addEventListener('click', refrashDoc);
+	}
+		outMessage.addEventListener('click', refrashDoc);
 }
