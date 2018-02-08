@@ -16,8 +16,8 @@ var show = document.getElementById('show');
 
 var timerE, numE;
 
-levels[0].addEventListener('click', pushLevel1);
-levels[1].addEventListener('click', pushLevel2);
+levels[0].addEventListener('click', checkStart, pushLevel1);
+levels[1].addEventListener('click', checkStart, pushLevel2);
 
 var arr1 = [];
 var arr2 = [];
@@ -35,11 +35,12 @@ function runTimer(){
 	if (timerE <= 0) {
 		outMessage.style.display = 'block';
 		outMessage.innerHTML = 'Timpul rezervat a luat sfârșit! <br>Apasă aici pentru a reîncepe jocul';
-
+		outMessage.addEventListener('click', refrashDoc);
+		
 		var butt = document.getElementById('button');
 		butt.removeEventListener('click', checkResult);
 
-		outMessage.addEventListener('click', refrashDoc);
+		
 
 		var allInputsUser = show.querySelectorAll('.input-result');
 		for (var i = 0; i < allInputsUser.length; i++){
@@ -210,4 +211,12 @@ function arrSum(arr){
 		summ += arr[i];
 	}
 	return summ;
+}
+
+function checkStart(){
+	if (numExerInput.value == '' || timerExer.value == ''){
+		outMessage.style.display = 'block';
+		outMessage.innerHTML = 'Introduce-ti campurile libere...';
+	} 
+	outMessage.addEventListener('click', refrashDoc);
 }
