@@ -89,6 +89,12 @@ function checkResult(){
 
 function pushLevel2(){
 	getInputNumber();
+	if (numExerInput.value == '' || timerExer.value == ''){
+		outMessage.style.display = 'block';
+		outMessage.innerHTML = 'Introduce-ti campurile libere...';
+		outMessage.addEventListener('click', clouseMessage);
+	} 
+	else{
 	disabledHead();
 	generateNum(100);
 	runTimer();	
@@ -127,11 +133,18 @@ function pushLevel2(){
 
 	butt = document.getElementById('button');
 	butt.addEventListener('click', checkResult);
+	}
 }
 
 
 function pushLevel1(){	
 	getInputNumber();
+	if (numExerInput.value == '' || timerExer.value == ''){
+		outMessage.style.display = 'block';
+		outMessage.innerHTML = 'Introduce-ti campurile libere...';
+		outMessage.addEventListener('click', clouseMessage);
+	} 
+	else{
 	disabledHead();
 	runTimer();
 	generateNum(10);
@@ -170,6 +183,7 @@ function pushLevel1(){
 
 	var butt = document.getElementById('button');
 	butt.addEventListener('click', checkResult);
+	}
 }
 
 
